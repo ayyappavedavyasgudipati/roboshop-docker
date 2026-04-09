@@ -1,7 +1,7 @@
 FROM python:3.9 
 WORKDIR /app
 COPY payment.ini .
-COPY .*py .
+COPY *.py .
 COPY requirements.txt .
 ENV CART_HOST=cart \
     CART_PORT=8080 \
@@ -10,5 +10,5 @@ ENV CART_HOST=cart \
     AMQP_HOST=rabbitmq \
     AMQP_USER=roboshop \
     AMQP_PASS=roboshop123
-RUN pip 3 install -r requirements.txt
+RUN pip3 install -r requirements.txt
 CMD ["uwsgi", "--ini", "payment.ini"]
