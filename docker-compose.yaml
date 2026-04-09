@@ -3,14 +3,14 @@ services:
     build: ./catalogue
     image: roboshop/catalogue:1.0.0
     container_name: catalogue
-    dependson:
+    depends_on:
     - mongodb
 
   cart:
     build: ./cart
     image: roboshop/cart:1.0.0
     container_name: cart
-    dependson:
+    depends_on:
     - redis
     - catalogue
 
@@ -18,7 +18,7 @@ services:
     build: ./user
     image: roboshop/user:1.0.0
     container_name: user
-    dependson:
+    depends_on:
     - redis  
     - mongodb
 
@@ -26,7 +26,7 @@ services:
       build: ./shipping
       image: roboshop/shipping:1.0.0
       container_name: shipping
-      dependson:
+      depends_on:
       - mysql
       - cart
 
@@ -34,7 +34,7 @@ services:
       build: ./payment
       image: roboshop/payment:1.0.0
       container_name: payment
-      dependson:
+      depends_on:
       - rabbitmq
       - cart
       - user
@@ -45,7 +45,7 @@ services:
     container_name: frontend
     ports:
     - "80:80"
-    dependson:
+    depends_on:
     - catalogue
     - cart
     - user
