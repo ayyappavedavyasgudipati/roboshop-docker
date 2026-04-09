@@ -64,7 +64,7 @@ services:
       RABBITMQ_DEFAULT_PASS: roboshop123
 
   mongodb:
-    build: ./mongodb.Dockerfile
+    build: ./mongodb
     image: roboshop/mmongodb:1.0.0
     container_name: mongodb
 
