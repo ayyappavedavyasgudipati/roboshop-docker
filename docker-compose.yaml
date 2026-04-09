@@ -73,8 +73,8 @@ services:
     image: roboshop/mysql:1.0.0
     container_name: mysql
 
-  networks:
-    default:
-      name: roboshop
-      driver: bridge
-      external: false  
+networks:
+  default:
+    name: roboshop
+    driver: bridge
+    external: false  
