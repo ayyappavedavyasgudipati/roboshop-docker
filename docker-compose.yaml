@@ -22,22 +22,22 @@ services:
     - redis  
     - mongodb
 
-    shipping:
-      build: ./shipping
-      image: roboshop/shipping:1.0.0
-      container_name: shipping
-      depends_on:
-      - mysql
-      - cart
+  shipping:
+    build: ./shipping
+    image: roboshop/shipping:1.0.0
+    container_name: shipping
+    depends_on:
+    - mysql
+    - cart
 
-    payment:
-      build: ./payment
-      image: roboshop/payment:1.0.0
-      container_name: payment
-      depends_on:
-      - rabbitmq
-      - cart
-      - user
+  payment:
+    build: ./payment
+    image: roboshop/payment:1.0.0
+    container_name: payment
+    depends_on:
+    - rabbitmq
+    - cart
+    - user
 
   frontend:
     build: ./frontend
