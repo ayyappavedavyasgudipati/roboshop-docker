@@ -1,0 +1,14 @@
+FROM python:3.9 
+WORKDIR /app
+COPY payment.ini .
+COPY .*py .
+COPY requirements.txt .
+ENV CART_HOST=cart \
+    CART_PORT=8080 \
+    USER_HOST=user \
+    USER_PORT=8080 \
+    AMQP_HOST=rabbitmq \
+    AMQP_USER=roboshop \
+    AMQP_PASS=roboshop123
+RUN pip 3 install -r requirements.txt
+CMD ["uwsgi", "--ini", "payment.ini"]

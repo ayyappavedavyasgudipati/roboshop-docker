@@ -1,0 +1,80 @@
+services:
+  catalogue:
+    build: ./catalogue
+    image: roboshop/catalogue:1.0.0
+    container_name: catalogue
+    dependson:
+    - mongodb
+
+  cart:
+    build: ./cart
+    image: roboshop/cart:1.0.0
+    container_name: cart
+    dependson:
+    - redis
+    - catalogue
+
+  user:
+    build: ./user
+    image: roboshop/user:1.0.0
+    container_name: user
+    dependson:
+    - redis  
+    - mongodb
+
+    shipping:
+      build: ./shipping
+      image: roboshop/shipping:1.0.0
+      container_name: shipping
+      dependson:
+      - mysql
+      - cart
+
+    payment:
+      build: ./payment
+      image: roboshop/payment:1.0.0
+      container_name: payment
+      dependson:
+      - rabbitmq
+      - cart
+      - user
+
+  frontend:
+    build: ./frontend
+    image: roboshop/frontend:1.0.0
+    container_name: frontend
+    ports:
+    - "80:80"
+    dependson:
+    - catalogue
+    - cart
+    - user
+    - payment
+    - shipping    
+
+  redis:
+    image: redis:7.0
+    container_name: redis
+
+  rabbitmq:
+    image: rabbitmq:3.8
+    container_name: rabbitmq  
+    environment:
+      RABBITMQ_DEFAULT_USER=roboshop
+      RABBITMQ_DEFAULT_PASS=roboshop123
+
+  mongodb:
+    build: ./mongodb.Dockerfile
+    image: roboshop/mmongodb:1.0.0
+    container_name: mongodb
+
+  mysql:
+    build: ./mysql
+    image: roboshop/mysql:1.0.0
+    container_name: mysql
+
+  networks:
+    default:
+      name: roboshop
+      driver: bridge
+      external: false  
