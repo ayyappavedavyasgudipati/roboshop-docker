@@ -5,7 +5,7 @@ COPY package.json .
 RUN npm install
 
 
-FROM node:20.20.2-alpine3.23 as builder
+FROM node:20.20.2-alpine3.23
 WORKDIR /app
 EXPOSE 8080
 COPY --from=builder /app /app
