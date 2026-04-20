@@ -66,8 +66,8 @@ services:
     environment:
       RABBITMQ_DEFAULT_USER: roboshop
       RABBITMQ_DEFAULT_PASS: roboshop123
-      volumes:
-      - rabbitmq:/var/lib/rabbitmq
+    volumes:
+    - rabbitmq:/var/lib/rabbitmq
 
   mongodb:
     build: ./mongodb
@@ -80,6 +80,7 @@ services:
     build: ./mysql
     image: roboshop/mysql:1.0.0
     container_name: mysql
+    
     volumes:
     - mysql:/var/lib/mysql
 
